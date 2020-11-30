@@ -1,0 +1,47 @@
+
+Dockerfile ubuntu: 
+
+#Download base image ubuntu
+FROM ubuntu:latest
+
+MAINTAINER <ibine>
+LABEL version="0.1"
+LABEL description="This is custom Docker Image ubuntu."
+
+RUN apt-get update && apt-get install -y \
+  vim \
+  curl \
+  git \
+  net-tools \
+  telnet \
+  && rm -rf /var/lib/apt/lists/*
+# WORKDIR /tmp/
+
+
+
+# Contruction de mon image
+docker build -t nomimage:version .
+
+# Lancement du container
+docker run -dti --name nomconatiner nomimage
+
+# Avoir le détail sur l'image construite
+docker history nomimage:v1
+
+docker exec -ti nomconatiner bash
+
+
+Lors du push de l'image faire avec le versionning, la derniere image ilfaudra la tager avec le nom de version et en latest. 
+
+Par défaut docker pull la version latest si on ne lui précise pas la version. Si la version latest n'existe il ne recupérera rien.
+
+# connextion au docker hub
+docker login 
+
+# tager l'image avec votre repo 
+docker tag firstimage YOUR_DOCKERHUB_NAME/firstimage
+
+# push you images 
+docker push YOUR_DOCKERHUB_NAME/firstimage
+
+source : https://gitlab.com/xavki/presentations_docker
