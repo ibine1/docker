@@ -20,7 +20,11 @@
           echo ""
           nb_machine=1
     [ "$2" != "" ] && nb_machine=$2
-      
+    
+    #recuperation du nombre de containaire max lance
+    docker inspect --format '{{.Name}}' $(docker ps -q) | grep $USER-alpine-$i| awk -F "-" -v user=$USER '$0 ~ user"-alpine" {print $3}' | sort -r| head -1
+   
+          # Cration de container via une boucle for
           for i in $(seq 1 $nb_machine); do 
           docker run -tid --name $USER-alpine-$i alpine:latest
  
