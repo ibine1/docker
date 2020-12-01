@@ -26,7 +26,7 @@
   max=0 
 
   #Recuperation de l'idmax
-  idmax=`docker inspect --format '{{.Name}}' $(docker ps -q) | grep $USER-alpine-$i| awk -F "-" -v user=$USER '$0 ~ user"-alpine" {print $3}' | sort -r| head -1`
+  idmax=`docker inspect --format '{{.Name}}' $(docker ps -aq) | grep $USER-alpine-$i| awk -F "-" -v user=$USER '$0 ~ user"-alpine" {print $3}' | sort -r| head -1`
 
   #Reinitialisation du min/max
   min=$(($idmax + 1))
@@ -50,7 +50,7 @@
   elif [ "$1" == "--drop" ];then 
 
   echo " notre option est --drop " 
-    docker rm -f $(docker inspect --format '{{.Name}}' $(docker ps -q) | grep $USER-alpine-$i)
+    docker rm -f $(docker inspect --format '{{.Name}}' $(docker ps -aq) | grep $USER-alpine-$i)
 
   echo "Vous avez supprimé la liste de containeur ci-dessus " 
 
@@ -59,7 +59,7 @@
   
   echo " notre option est --infos " 
  
-  docker inspect --format '{{.Name}}' $(docker ps -q) | grep $USER-alpine-$i
+  docker inspect --format '{{.Name}}' $(docker ps -aq) | grep $USER-alpine-$i
  
   echo " Voici la liste des containeur en cours " 
 
@@ -68,8 +68,8 @@
 
   echo " notre option est --start " 
 
-  docker start $(docker rm -f $(docker inspect --format '{{.Name}}' $(docker ps -q) | grep $USER-alpine-$i))
-  
+  docker start $(docker inspect --format '{{.Name}}' $(docker ps -aq))
+
   # si notre option est --ansible
   elif [ "$1" == "--ansible" ];then 
 
