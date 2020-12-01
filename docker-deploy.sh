@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 #######################################################################################################
-###     Description : Script de déployement de containeur basé sur le scipt de la chaine Xavki.     ###
+###     Description : Script de déployement de conteneurs basé sur le scipt de la chaine Xavki.     ###
 ###                                                                                                 ###
 ###     source: https://gitlab.com/xavki/presentations-scripting/-/tree/master/shell                ###
 ###                                                                                                 ###
@@ -36,7 +36,7 @@
   for i in $(seq $min $max);do
   docker run -tid --name $USER-alpine-$i alpine:latest
  
-    echo "Containeur $USER-alpine-$i créer"
+    echo "Conteneurs $USER-alpine-$i créer"
     done
 
 #opérateur filesystème :
@@ -52,16 +52,19 @@
   echo " notre option est --drop " 
     docker rm -f $(docker inspect --format '{{.Name}}' $(docker ps -aq) | grep $USER-alpine-$i)
 
-  echo "Vous avez supprimé la liste de containeur ci-dessus " 
+  echo "Vous avez supprimé la liste de conteneurs ci-dessus " 
 
   # si notre option est --infos
   elif [ "$1" == "--infos" ];then 
   
-  echo " notre option est --infos " 
- 
-  docker inspect --format '{{.Name}}' $(docker ps -aq) | grep $USER-alpine-$i
- 
-  echo " Voici la liste des containeur en cours " 
+    echo "" 
+    echo " Information des conteneurs " 
+    echo "" 
+    for conteneur in $(docker inspect --format '{{.Name}}' $(docker ps -aq) | grep $USER-alpine-$i); do 
+      docker inspect --format '   ==>  {{.Name}} - {{.NetworkSettings.IPAddress}}' $conteneur
+    done
+  
+    echo " Voici la liste des conteneurs en cours " 
 
   # si notre option est --start
   elif [ "$1" == "--start" ];then 
