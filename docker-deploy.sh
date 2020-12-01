@@ -21,20 +21,24 @@
     nb_machine=1
       
     [ "$2" != "" ] && nb_machine=$2
-      
+  # Initialisation du min/max      
   min=1
   max=0 
 
+  #Recuperation de l'idmax
   idmax=`docker inspect --format '{{.Name}}' $(docker ps -q) | grep $USER-alpine-$i| awk -F "-" -v user=$USER '$0 ~ user"-alpine" {print $3}' | sort -r| head -1`
 
+  #Reinitialisation du min/max
   min=$(($idmax + 1))
   max=$(($idmax + $nb_machine)) 
 
+  #Boucle
   for i in $(seq $min $max);do
   docker run -tid --name $USER-alpine-$i alpine:latest
  
     echo "Containeur $USER-alpine-$i créer"
     done
+
 #opérateur filesystème :
 #	- -z : variable vide
 #	- -f : fichier existe
@@ -64,6 +68,8 @@
 
   echo " notre option est --start " 
 
+  docker start $(docker rm -f $(docker inspect --format '{{.Name}}' $(docker ps -q) | grep $USER-alpine-$i))
+  
   # si notre option est --ansible
   elif [ "$1" == "--ansible" ];then 
 
