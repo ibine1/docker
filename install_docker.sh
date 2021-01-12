@@ -50,6 +50,10 @@ sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server
 printf '\nContainer Rancher lauch successfully \n\n'
 printf 'For login to Rancher interface, navigate to the following URL: http://<SERVER_IP>:8080 \n\n'
 
-printf 'after the reboot of workstation your need to launch rancher container  with this command 
+printf '\nWARNING : Your user is member of docker group with this script. 
+          The update take effect after restart your session. 
 
- docker run -d --restart=unless-stopped -p 8080:8080 rancher/server  \n\n'
+Remember: After log out and login in the workstation you need to 
+	  launch the rancher container with the commande below 
+
+  docker run -d --restart=unless-stopped -p 8080:8080 rancher/server  \n\n''
