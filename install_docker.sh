@@ -49,3 +49,7 @@ printf '\n\n launch rancher container \n\n'
 sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server
 printf '\nContainer Rancher lauch successfully \n\n'
 printf 'For login to Rancher interface, navigate to the following URL: http://<SERVER_IP>:8080 \n\n'
+
+printf 'after the reboot of workstation your need to launch rancher container  with this command 
+
+ docker run -d --restart=unless-stopped -p 8080:8080 rancher/server  \n\n'
