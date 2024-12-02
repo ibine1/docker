@@ -76,7 +76,7 @@
 - **Docker image prune** : It will clean an unused/dangling image
 - **Docker image prune -a** : It will remove an image not used in a container.
 - **Docker system prune** : It will prune the entire system.
-- **Docker kills $ (docker ps -a)** : It will stop all running Docker containers.
+- **Docker kills $(docker ps -a)** : It will stop all running Docker containers.
 - **docker rm $(docker ps -a -q)** : It will delete all stopped containers
 - **docker rmi $(docker images -q)** : It will delete all images.
  
